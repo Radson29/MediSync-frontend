@@ -1,59 +1,115 @@
-# OpteamerClient
+# MediSync-frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
+MediSync-frontend to aplikacja webowa służąca do zarządzania danymi medycznymi, stanowiąca interfejs użytkownika systemu MediSync. Została zaprojektowana w technologii Angular, z naciskiem na przejrzystość, użyteczność i bezpieczeństwo. Współpracuje z backendem systemu, umożliwiając interakcję z danymi dotyczącymi pacjentów, operacji, zespołów medycznych oraz ocen przedoperacyjnych.
 
-## Development server
+## Spis treści
 
-To start a local development server, run:
+- [Opis projektu](#opis-projektu)
+- [Funkcjonalności](#funkcjonalności)
+- [Technologie](#technologie)
+- [Instalacja](#instalacja)
+- [Obsługa autoryzacji](#obsługa-autoryzacji)
+- [Przykłady ekranów](#przykłady-ekranów)
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Opis projektu
 
-## Code scaffolding
+Frontend systemu MediSync jest interfejsem użytkownika umożliwiającym:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Zarządzanie pacjentami
+- Dodawanie operacji i zespołów
+- Obsługę sal operacyjnych oraz zasobów
+- Dodawanie ocen przedoperacyjnych i medycznych
+- Logowanie i autoryzację użytkowników (JWT)
 
-```bash
-ng generate component component-name
-```
+## Funkcjonalności
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 🩺 Pacjenci
 
-```bash
-ng generate --help
-```
+- Przegląd, dodawanie, edycja i usuwanie pacjentów
 
-## Building
+### 🧠 Oceny przedoperacyjne i operacyjne
 
-To build the project run:
+- Możliwość rejestracji oceny stanu zdrowia pacjenta przed operacją
+- Powiązanie oceny z zespołem medycznym i pacjentem
 
-```bash
-ng build
-```
+### 🏥 Sale operacyjne
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- Przegląd dostępnych sal
+- Powiązanie zasobów z salami
 
-## Running unit tests
+### 👨‍⚕️ Zespół medyczny
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- Lista lekarzy i personelu (SURGEON, ANESTHESIOLOGIST itd.)
+- Powiązanie z konkretnymi operacjami
 
-```bash
-ng test
-```
+### 🔐 Uwierzytelnianie
 
-## Running end-to-end tests
+- Logowanie z JWT
+- Ochrona tras (routing + AuthGuard)
+- Automatyczne odświeżanie danych
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## Technologie
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- **Angular 19.2.5**
+- **RxJS** – zarządzanie danymi asynchronicznymi
+- **Bootstrap 5** – stylizacja UI
+- **JWT Auth** – uwierzytelnianie
+- **Reactive Forms** – formularze walidowane dynamicznie
+- **HttpClientModule** – komunikacja z REST API backendu
+- **LocalStorage** – przechowywanie tokenu
+---
 
-## Additional Resources
+## Instalacja
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Sklonuj repozytorium:
+
+   ```bash
+   git clone https://github.com/Radson29/MediSync-frontend.git
+   cd MediSync-frontend
+   ```
+
+2. Zainstaluj zależności:
+
+   ```bash
+   npm install
+   ```
+
+3. Uruchom aplikację:
+
+   ```bash
+   ng serve
+   ```
+
+4. Domyślnie aplikacja będzie działać na `http://localhost:4200`
+
+---
+
+## Obsługa autoryzacji
+
+- Logowanie odbywa się poprzez wysłanie danych do backendu (`/api/auth/login`)
+- Token JWT zapisywany jest w `localStorage`
+- Token automatycznie dołączany do zapytań przez `JWTInterceptor`
+- Dostęp do tras zabezpieczony przez `AuthGuard`:
+
+---
+
+## Przykłady ekranów
+<img src="public/Screenshot_3.png" alt="1" width="800"/>
+<img src="public/Screenshot_1.png" alt="1" width="800"/>
+<img src="public/Screenshot_2.png" alt="1" width="800"/>
+<img src="public/Screenshot_4.png" alt="1" width="800"/>
+<img src="public/Screenshot_5.png" alt="1" width="800"/>
+<img src="public/Screenshot_6.png" alt="1" width="800"/>
+<img src="public/Screenshot_7.png" alt="1" width="800"/>
+<img src="public/Screenshot_8.png" alt="1" width="800"/>
+
+---
+
+
+## Licencja
+
+Projekt open-source do celów edukacyjnych i demonstracyjnych.
