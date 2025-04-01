@@ -1,0 +1,108 @@
+
+<div class="card-wide">
+
+  <h1 class="main-title">OperationReport</h1>
+
+  <ng-container *ngIf="(operationReports | async) as operationReports">
+
+    <div class="d-grid gap-2 d-md-block">
+      <button type="button"
+              class="btn btn-light btn-sm"
+              (click)="openModal(null)"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">
+        create operation report
+      </button>
+    </div>
+
+    <table class="table table-sm table-container">
+      <thead>
+      <tr>
+        <th scope="col" class="table-header-font">Team member</th>
+        <th scope="col" class="table-header-font">Operation</th>
+        <th scope="col" class="table-header-font">Report</th>
+        <th scope="col" class="table-header-column"></th>
+        <th scope="col" class="table-header-column"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let operationReport of operationReports; let i = index">
+        <td class="table-content-font">{{operationReport.teamMember.name}}</td>
+        <td class="table-content-font">{{operationReport.operation.operationType.name}}</td>
+        <td class="table-content-font">{{operationReport.report}}</td>
+        <td class="table-content-font">
+
+          <button type="button"
+                  class="btn btn-outline-primary"
+                  (click)="openModal(operationReport)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
+            edit
+          </button>
+
+        </td>
+
+        <td class="table-content-font">
+
+          <button type="button"
+                  class="btn btn-outline-danger"
+                  (click)="onDeleteOperationReport(operationReport.teamMember.id, operationReport.operation.id)">
+            delete
+          </button>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-scrollable">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">OperationReport {{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <ng-container *ngIf="(combined$ | async) as combined">
+        <form [formGroup]="operationReportForm" (ngSubmit)="onSubmit()" class="modal_card">
+
+          <div class="mb-3">
+            <label for="orTeamMember" class="form-label main-text-style">Temam member</label>
+            <select id="orTeamMember" formControlName="teamMember" class="form-select form-select text-content">
+              <option *ngFor="let teamMember of combined[0]" [value]="teamMember.id">{{ teamMember.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="orOperation" class="form-label main-text-style">Operation</label>
+            <select id="orOperation" formControlName="operation" class="form-select form-select text-content">
+              <option *ngFor="let operation of combined[1]" [value]="operation.id">{{ operation.operationType.name }} - {{ operation.patient.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="orReport" class="form-label main-text-style">Report</label>
+            <input type="text" class="form-control text-content" id="orReport" formControlName="report">
+          </div>
+
+          <div class="mb-3">
+            <button class="btn btn-primary button-color float-right" type="submit" data-bs-dismiss="modal">Send</button>
+          </div>
+
+
+        </form>
+      </ng-container>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,115 @@
+
+<div class="card-wide">
+
+  <h1 class="main-title">OperationRooms</h1>
+
+  <ng-container *ngIf="(operationRooms | async) as operationRooms">
+
+    <div class="d-grid gap-2 d-md-block">
+      <button type="button"
+              class="btn btn-light btn-sm"
+              (click)="openModal(null)"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">
+        create operation room
+      </button>
+    </div>
+
+    <table class="table table-sm table-container">
+      <thead>
+      <tr>
+        <th scope="col" class="table-header-font">Id</th>
+        <th scope="col" class="table-header-font">Room Nr.</th>
+        <th scope="col" class="table-header-font">Building Block</th>
+        <th scope="col" class="table-header-font">Type</th>
+        <th scope="col" class="table-header-font">State</th>
+        <th scope="col" class="table-header-column"></th>
+        <th scope="col" class="table-header-column"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let operationRoom of operationRooms; let i = index">
+        <th scope="row" class="table-content-font">{{operationRoom.id}}</th>
+        <td class="table-content-font">{{operationRoom.roomNr}}</td>
+        <td class="table-content-font">{{operationRoom.buildingBlock}}</td>
+        <td class="table-content-font">{{operationRoom.type}}</td>
+        <td class="table-content-font">{{operationRoom.state}}</td>
+        <td class="table-content-font">
+
+          <button type="button"
+                  class="btn btn-outline-primary"
+                  (click)="openModal(operationRoom)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
+            edit
+          </button>
+
+        </td>
+
+        <td class="table-content-font">
+
+          <button type="button"
+                  class="btn btn-outline-danger"
+                  (click)="onDeleteOperationRoom(operationRoom.id)">
+            delete
+          </button>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-scrollable">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Operation Room {{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form [formGroup]="operationRoomForm" (ngSubmit)="onSubmit()" class="modal_card">
+
+        <div class="mb-3">
+          <label for="opRoomRoomNr" class="form-label main-text-style">Room Nr.</label>
+          <input type="text" class="form-control text-content" id="opRoomRoomNr" formControlName="roomNr">
+        </div>
+
+        <div class="mb-3">
+          <label for="opRoomBB" class="form-label main-text-style">Building block</label>
+          <input type="text" class="form-control text-content" id="opRoomBB" formControlName="buildingBlock">
+        </div>
+
+        <div class="mb-3">
+          <label for="opRoomFloor" class="form-label main-text-style">Floor</label>
+          <input type="text" class="form-control text-content" id="opRoomFloor" formControlName="floor">
+        </div>
+
+        <div class="mb-3">
+          <label for="opRoomType" class="form-label main-text-style">Type</label>
+          <input type="text" class="form-control text-content" id="opRoomType" formControlName="type">
+        </div>
+
+        <div class="mb-3">
+          <label for="opRoomState" class="form-label main-text-style">State</label>
+          <input type="text" class="form-control text-content" id="opRoomState" formControlName="state">
+        </div>
+
+
+        <div class="mb-3">
+          <button class="btn btn-primary button-color float-right" type="submit" data-bs-dismiss="modal">Send</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</div>

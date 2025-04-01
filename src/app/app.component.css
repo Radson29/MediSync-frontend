@@ -1,0 +1,182 @@
+
+.card_row_box {
+
+  display: flex;
+  flex-direction: row;
+
+  margin-left: 10%;
+  margin-top: 5%;
+  width: 80%;
+
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  padding: 4% 3% 4% 4%;
+  gap: 10%;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+
+.embedded_card {
+
+  margin-left: 2%;
+  margin-top: 3%;
+  width: 40%;
+
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  padding: 0% 1% 0% 0%;
+
+  gap: 13px;
+}
+
+.modal_card {
+
+  margin-left: 5%;
+  margin-top: 10%;
+  width: 90%;
+
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  padding: 0% 1% 0% 0%;
+
+  gap: 13px;
+}
+
+.card {
+
+  margin-left: 30%;
+  margin-top: 5%;
+  width: 40%;
+
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 5px 25px;
+  gap: 13px;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+
+.card-wide {
+
+  margin-left: 5%;
+  margin-top: 5%;
+  width: 90%;
+
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 5px 25px;
+  gap: 13px;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+
+.main-title {
+  margin-top: 20px;
+  font-size: 35px;
+}
+.main-color, .main-text-style, .main-title {
+  color: #667496;
+}
+
+.main-text-style, .main-title {
+  font-family: "Baloo Tamma 2";
+}
+
+.form-label {
+  color: #667496;
+  font-family: "PingFang HK";
+}
+
+.form-input {
+  color: #6f6f77;
+}
+
+/*6e9fe8*/
+
+.text-content {
+  color: #6489e7;
+}
+
+.form-validation-error-box {
+  color: white;
+  background-color: #a81616;
+  border-radius: 5px;
+  margin: 2px 2px 2px 2px;
+  padding: 2px 5px 2px 5px;
+  width: max-content;
+}
+
+/*5485e0 3768c4*/
+
+.button-color {
+  background-color: #6bd5c5;
+  border-color: #6bd5c5;
+}
+
+.button-color:hover {
+  background-color: #47b6a5;
+  border-color: #47b6a5;
+}
+
+.float-right {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: right;
+  width: 20%;
+  outline: none;
+  box-shadow: none;
+}
+
+.float-right:active {
+  margin-top: 12px;
+  margin-bottom: 8px;
+  outline: none;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.float-right:focus {
+  border-color: transparent;
+}
+
+.text-with-link {
+  display: flex;
+}
+
+.common-link {
+  color: #317ef1;
+  cursor: pointer;
+}
+
+::placeholder {
+  color: #ced1d9;
+}
+
+.table-header-font {
+  color: #475d7e;
+}
+
+.table-content-font {
+  color: #838da2;
+}
+
+.table-header-column {
+  width: 5%;
+}
+
+.table-container {
+  width: 95%;
+  margin: 20px 20px 50px 20px;
+}
+

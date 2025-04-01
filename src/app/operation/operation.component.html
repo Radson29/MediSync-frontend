@@ -1,0 +1,134 @@
+
+<div class="card-wide">
+
+  <h1 class="main-title">Operations</h1>
+
+  <ng-container *ngIf="(operations | async) as operations">
+
+    <div class="d-grid gap-2 d-md-block">
+      <button type="button"
+              class="btn btn-light btn-sm"
+              (click)="openModal(null)"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">
+        create operation
+      </button>
+    </div>
+
+    <table class="table table-sm table-container">
+      <thead>
+      <tr>
+        <th scope="col" class="table-header-font">Id</th>
+        <th scope="col" class="table-header-font">Type</th>
+        <th scope="col" class="table-header-font">Patient</th>
+        <th scope="col" class="table-header-font">State</th>
+        <th scope="col" class="table-header-font">Start date</th>
+        <th scope="col" class="table-header-column"></th>
+        <th scope="col" class="table-header-column"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let operation of operations; let i = index">
+        <th scope="row" class="table-content-font">{{operation.id}}</th>
+        <th scope="row" class="table-content-font">{{operation.operationType.name}}</th>
+        <td class="table-content-font">{{operation.patient.name}}</td>
+        <td class="table-content-font"><span [ngClass]="[ operation.state === 'SCHEDULED' ? 'badge bg-warning text-dark' : '',
+                                                          operation.state === 'IN_PROGRESS' ? 'badge bg-primary' : '',
+                                                          operation.state === 'READY_TO_BEGIN' ? 'badge bg-info' : '',
+                                                          operation.state === 'CANCELLED' ? 'badge bg-danger' : '']">{{operation.state}}</span></td>
+        <td class="table-content-font">{{operation.startDate}}</td>
+        <td class="table-content-font">
+
+          <button type="button"
+                  class="btn btn-outline-primary"
+                  (click)="openModal(operation)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
+            edit
+          </button>
+
+        </td>
+
+        <td class="table-content-font">
+
+          <button type="button"
+                  class="btn btn-outline-danger"
+                  (click)="onDeleteOperation(operation.id)">
+            delete
+          </button>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-scrollable">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Operation {{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <ng-container *ngIf="(combined$ | async) as combined">
+        <form [formGroup]="operationForm" (ngSubmit)="onSubmit()" class="modal_card">
+
+          <div class="mb-3">
+            <label for="oOperationType" class="form-label main-text-style">Operation type</label>
+            <select id="oOperationType" formControlName="operationType" class="form-select form-select text-content">
+              <option *ngFor="let operationType of combined[0]" [value]="operationType.name">{{ operationType.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="oOperationRoom" class="form-label main-text-style">Operation room</label>
+            <select id="oOperationRoom" formControlName="operationRoom" class="form-select form-select text-content">
+              <option *ngFor="let operationRoom of combined[1]" [value]="operationRoom.id">{{ operationRoom.type }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="oPatient" class="form-label main-text-style">Patient</label>
+            <select id="oPatient" formControlName="patient" class="form-select form-select text-content">
+              <option *ngFor="let patient of combined[2]" [value]="patient.id">{{ patient.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="oTeamMember" class="form-label main-text-style">Team member</label>
+            <select id="oTeamMember" formControlName="teamMembers" class="form-select form-select text-content-multiple" multiple>
+              <option *ngFor="let teamMember of combined[3]" [value]="teamMember.id">{{ teamMember.name }} - {{ teamMember.operationProvider.type }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="oState" class="form-label main-text-style">State</label>
+            <input type="text" class="form-control text-content" id="oState" formControlName="state">
+          </div>
+
+          <div class="mb-3">
+            <label for="oStartDate" class="form-label main-text-style">Start date</label>
+            <input type="datetime-local" class="form-control text-content" id="startdate" formControlName="startDate">
+          </div>
+
+          <div class="mb-3">
+            <button class="btn btn-primary button-color float-right" type="submit" data-bs-dismiss="modal">Send</button>
+          </div>
+        </form>
+      </ng-container>
+
+    </div>
+  </div>
+
+</div>
+
+

@@ -1,0 +1,105 @@
+
+<div class="card-wide">
+
+  <h1 class="main-title">Assessments</h1>
+
+  <ng-container *ngIf="(assessments | async) as assessments">
+
+    <div class="d-grid gap-2 d-md-block">
+      <button type="button"
+              class="btn btn-light btn-sm"
+              (click)="openModal(null)"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">
+        create assessment
+      </button>
+    </div>
+
+    <table class="table table-sm table-container">
+      <thead>
+        <tr>
+          <th scope="col" class="table-header-font">Pre Op. Assessment</th>
+          <th scope="col" class="table-header-font">Team Member</th>
+          <th scope="col" class="table-header-font">Patient</th>
+          <th scope="col" class="table-header-font">Start date</th>
+          <th scope="col" class="table-header-column"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let assessment of assessments; let i = index">
+          <td class="table-content-font">{{assessment.preOperativeAssessment.name}}</td>
+          <td class="table-content-font">{{assessment.teamMember.name}}</td>
+          <td class="table-content-font">{{assessment.patient.name}}</td>
+          <td class="table-content-font">{{assessment.startDate}}</td>
+          <td class="table-content-font">
+
+            <button type="button"
+                    class="btn btn-outline-danger"
+                    (click)="onDeleteAssessment(assessment.teamMember.id, assessment.patient.id, assessment.preOperativeAssessment.name)">
+              delete
+            </button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-scrollable">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Assessment {{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <ng-container *ngIf="(combined | async) as combined">
+        <form [formGroup]="assessmentForm" (ngSubmit)="onSubmit()" class="modal_card">
+
+
+          <div class="mb-3">
+            <label for="assessmentPreOpA" class="form-label main-text-style">Pre operative assessment</label>
+            <select id="assessmentPreOpA" formControlName="preOperativeAssessments" class="form-select form-select text-content">
+              <option *ngFor="let preOpA of combined[0]" [value]="preOpA.name">{{ preOpA.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="assessmentTeamMember" class="form-label main-text-style">Temam member</label>
+            <select id="assessmentTeamMember" formControlName="teamMember" class="form-select form-select text-content">
+              <option *ngFor="let teamMember of combined[1]" [value]="teamMember.id">{{ teamMember.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="assessmentPatient" class="form-label main-text-style">Patient</label>
+            <select id="assessmentPatient" formControlName="patient" class="form-select form-select text-content">
+              <option *ngFor="let patient of combined[2]" [value]="patient.id">{{ patient.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="assessmentSD" class="form-label main-text-style">Start date</label>
+            <input type="datetime-local" class="form-control text-content" id="startdate" formControlName="startdate">
+          </div>
+
+          <div class="mb-3">
+            <button class="btn btn-primary button-color float-right" type="submit" data-bs-dismiss="modal">Send</button>
+          </div>
+
+
+        </form>
+      </ng-container>
+
+    </div>
+  </div>
+
+</div>

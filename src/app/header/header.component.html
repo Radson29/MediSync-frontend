@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default navbar_panel">
+  <div class="container-fluid">
+
+    <p class="navbar_brand_text">MediSync</p>
+
+    <div class="navbar_link_container">
+      <!--<a routerLink="/" *ngIf="!(isLoggedIn$ | async)"><span class="navbar_link_text">Login</span></a>-->
+      <a routerLink="/patients" *ngIf="(isLoggedIn$ | async)"><span class="navbar_link_text">Patients</span></a>
+      <a routerLink="/teammembers" *ngIf="(isLoggedIn$ | async)"><span class="navbar_link_text">Team members</span></a>
+      <a routerLink="/operationtypes" *ngIf="(isLoggedIn$ | async)"><span class="navbar_link_text">Operation types</span></a>
+      <a routerLink="/assessments" *ngIf="(isLoggedIn$ | async)"><span class="navbar_link_text">Assessments</span></a>
+      <a routerLink="/roominventories" *ngIf="(isLoggedIn$ | async)"><span class="navbar_link_text">Room Inventory</span></a>
+      <a routerLink="/operationrooms" *ngIf="(isLoggedIn$ | async)"><span class="navbar_link_text">Operation Room</span></a>
+      <a routerLink="/operations" *ngIf="(isLoggedIn$ | async)"><span class="navbar_link_text">Operations</span></a>
+      <a routerLink="/operationreports" *ngIf="(isLoggedIn$ | async)"><span class="navbar_link_text">Operation Reports</span></a>
+      <!--<a routerLink (click)="logout()" *ngIf="(isLoggedIn$ | async)"><span class="logout_link_text">Logout</span></a>-->
+      <a routerLink (click)="logout()" *ngIf="(isLoggedIn$ | async)">
+        <button type="button" class="btn btn-sm btn-outline-dark">Logout</button>
+      </a>
+
+    </div>
+
+  </div>
+</nav>
+

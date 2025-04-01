@@ -1,0 +1,43 @@
+.navbar_panel {
+  background-color: #ffffff;
+  margin-top: -1px;
+  box-shadow: 0 1px 2px 0 rgba(87, 84, 84, 0.1);
+}
+
+
+
+.navbar_brand_text {
+  color: #3fa999;
+  font-size: larger;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  margin-left: 18em;
+  font-weight: bold;
+}
+
+.navbar_link_text {
+  margin-right: 20px;
+
+}
+
+.logout_link_text {
+  margin-right: 20px;
+  font-weight: bold;
+  color: #212528;
+}
+
+.navbar_link_container {
+  margin-left: 10em;
+  margin-right: 2em;
+}
+
+/*#868a87 #595d5a*/
+
+a {
+  color: #8b999d;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #2e4850;
+}

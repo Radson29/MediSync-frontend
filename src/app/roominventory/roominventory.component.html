@@ -1,0 +1,108 @@
+
+<div class="card-wide">
+
+  <h1 class="main-title">RoomInvetory</h1>
+
+  <ng-container *ngIf="(roomInventory| async) as roomInventories">
+
+    <div class="d-grid gap-2 d-md-block">
+      <button type="button"
+              class="btn btn-light btn-sm"
+              (click)="openModal(null)"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">
+        create room inventory
+      </button>
+    </div>
+
+    <table class="table table-sm table-container">
+      <thead>
+      <tr>
+        <th scope="col" class="table-header-font">Room</th>
+        <th scope="col" class="table-header-font">Asset</th>
+        <th scope="col" class="table-header-font">Count</th>
+        <th scope="col" class="table-header-column"></th>
+        <th scope="col" class="table-header-column"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let roomInventory of roomInventories; let i = index">
+        <td class="table-content-font">{{roomInventory.operationRoom.type}}</td>
+        <td class="table-content-font">{{roomInventory.asset.name}}</td>
+        <td class="table-content-font">{{roomInventory.count}}</td>
+        <td class="table-content-font">
+
+          <button type="button"
+                  class="btn btn-outline-primary"
+                  (click)="openModal(roomInventory)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
+            edit
+          </button>
+
+        </td>
+
+        <td class="table-content-font">
+
+          <button type="button"
+                  class="btn btn-outline-danger"
+                  (click)="onDeleteRoomInventory(roomInventory.asset.id, roomInventory.operationRoom.id)">
+            delete
+          </button>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-scrollable">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">RoomInventory {{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <ng-container *ngIf="(combined$ | async) as combined">
+        <form [formGroup]="roomInventoryForm" (ngSubmit)="onSubmit()" class="modal_card">
+
+          <div class="mb-3">
+            <label for="riOperationRoom" class="form-label main-text-style">Operation Room</label>
+            <select id="riOperationRoom" formControlName="operationRoom" class="form-select form-select text-content">
+              <option *ngFor="let operationRoom of combined[1]" [value]="operationRoom.id">{{ operationRoom.type }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="riAsset" class="form-label main-text-style">Asset</label>
+            <select id="riAsset" formControlName="asset" class="form-select form-select text-content">
+              <option *ngFor="let asset of combined[0]" [value]="asset.id">{{ asset.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="riCount" class="form-label main-text-style">Count</label>
+            <input type="text" class="form-control text-content" id="riCount" formControlName="count">
+          </div>
+
+          <div class="mb-3">
+            <button class="btn btn-primary button-color float-right" type="submit" data-bs-dismiss="modal">Send</button>
+          </div>
+
+
+        </form>
+      </ng-container>
+
+    </div>
+  </div>
+
+</div>

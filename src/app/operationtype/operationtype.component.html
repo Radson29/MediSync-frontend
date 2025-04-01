@@ -1,0 +1,122 @@
+
+<div class="card-wide">
+
+  <h1 class="main-title">OperationTypes</h1>
+
+  <ng-container *ngIf="(operationTypes | async) as operationTypes">
+
+    <div class="d-grid gap-2 d-md-block">
+      <button type="button"
+              class="btn btn-light btn-sm"
+              (click)="openModal(null)"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">
+        create operation type
+      </button>
+    </div>
+
+    <table class="table table-sm table-container">
+      <thead>
+      <tr>
+        <th scope="col" class="table-header-font">Name</th>
+        <th scope="col" class="table-header-font">Room type</th>
+        <th scope="col" class="table-header-column"></th>
+        <th scope="col" class="table-header-column"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let operationType of operationTypes; let i = index">
+        <th scope="row" class="table-content-font">{{operationType.name}}</th>
+        <td class="table-content-font">{{operationType.roomType}}</td>
+        <td class="table-content-font">
+
+          <button type="button"
+                  class="btn btn-outline-primary"
+                  (click)="openModal(operationType)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
+            edit
+          </button>
+
+        </td>
+
+        <td class="table-content-font">
+
+          <button type="button"
+                  class="btn btn-outline-danger"
+                  (click)="onDeleteOperationType(operationType.name)">
+            delete
+          </button>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-scrollable">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Operation type {{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <ng-container *ngIf="(combined$ | async) as combined">
+        <form [formGroup]="operationTypeForm" (ngSubmit)="onSubmit()" class="modal_card">
+
+          <div class="mb-3">
+            <label for="operationTypeName" class="form-label main-text-style">Name</label>
+            <input type="text" class="form-control text-content" id="operationTypeName" formControlName="name">
+          </div>
+
+          <div class="mb-3">
+            <label for="operationTypeRT" class="form-label main-text-style">Room Type</label>
+            <input type="text" class="form-control text-content" id="operationTypeRT" formControlName="roomType">
+          </div>
+
+          <div class="mb-3">
+            <label for="operationTypeDH" class="form-label main-text-style">Duration hours</label>
+            <input type="text" class="form-control text-content" id="operationTypeDH" formControlName="durationHours">
+          </div>
+
+          <div class="mb-3">
+            <label for="operationTypeOP" class="form-label main-text-style">Operation provider</label>
+            <select id="operationTypeOP" formControlName="operationProviders" class="form-select form-select-multiple text-content" multiple>
+              <option *ngFor="let operationProvider of combined[0]" [value]="operationProvider.type">{{ operationProvider.type }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="operationTypeAsset" class="form-label main-text-style">Asset</label>
+            <select id="operationTypeAsset" formControlName="assets" class="form-select form-select-multiple text-content" multiple>
+              <option *ngFor="let asset of combined[1]" [value]="asset.id">{{ asset.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="operationTypePreOpA" class="form-label main-text-style">Pre operative assessment</label>
+            <select id="operationTypePreOpA" formControlName="preOperativeAssessments" class="form-select form-select-multiple text-content" multiple>
+              <option *ngFor="let preOpA of combined[2]" [value]="preOpA.name">{{ preOpA.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <button class="btn btn-primary button-color float-right" type="submit" data-bs-dismiss="modal">Send</button>
+          </div>
+        </form>
+      </ng-container>
+
+    </div>
+  </div>
+
+</div>
+

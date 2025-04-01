@@ -1,0 +1,92 @@
+
+<div class="card-wide">
+
+  <h1 class="main-title">Patients</h1>
+
+  <ng-container *ngIf="(patients | async) as patients">
+
+    <div class="d-grid gap-2 d-md-block">
+      <button type="button"
+              class="btn btn-light btn-sm"
+              (click)="openModal(null)"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">
+        create patient
+      </button>
+    </div>
+
+    <table class="table table-sm table-container">
+      <thead>
+        <tr>
+          <th scope="col" class="table-header-font">Id</th>
+          <th scope="col" class="table-header-font">Name</th>
+          <th scope="col" class="table-header-font">Nin</th>
+          <th scope="col" class="table-header-column"></th>
+          <th scope="col" class="table-header-column"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patients; let i = index">
+          <th scope="row" class="table-content-font">{{patient.id}}</th>
+          <td class="table-content-font">{{patient.name}}</td>
+          <td class="table-content-font">{{patient.nin}}</td>
+          <td class="table-content-font">
+
+            <button type="button"
+                    class="btn btn-outline-primary"
+                    (click)="openModal(patient)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">
+              edit
+            </button>
+
+          </td>
+
+          <td class="table-content-font">
+
+            <button type="button"
+                    class="btn btn-outline-danger"
+                    (click)="onDeletePatient(patient.id)">
+              delete
+            </button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-scrollable">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Patient {{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="modal_card">
+        <div class="mb-3">
+          <label for="patientName" class="form-label main-text-style">Name</label>
+          <input type="text" class="form-control text-content" id="patientName" formControlName="name">
+        </div>
+        <div class="mb-3">
+          <label for="patientNin" class="form-label main-text-style">Nin</label>
+          <input type="text" class="form-control text-content" id="patientNin" formControlName="nin">
+        </div>
+        <div class="mb-3">
+          <button class="btn btn-primary button-color float-right" type="submit" data-bs-dismiss="modal">Send</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</div>
